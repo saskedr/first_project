@@ -1,20 +1,21 @@
-meme_dict = {
-            "КРИНЖ": "Что-то очень странное или стыдное",
-            "ЛОЛ": "Что-то очень смешное",
-            "РОФЛ": "Шутка"
-            }
+import discord
+from discord.ext import commands
 
-# log
-# log
-# log
-# log
-# log
-# log
-# log
-            
-word = input("Введите непонятное слово: ").upper()
+intents = discord.Intents.default()
+intents.message_content = True
 
-if word in meme_dict.keys():
-    print(meme_dict[word])
-else:
-    print('Упс-с-с, такого слова и я не знаю ;c')
+bot = commands.Bot(command_prefix='$', intents=intents)
+
+@bot.event
+async def on_ready():
+    print(f'We have logged in as {bot.user}')
+
+@bot.command()
+async def hello(ctx):
+    await ctx.send(f'Привет! Я бот {bot.user}!')
+
+@bot.command()
+async def heh(ctx, count_heh = 5):
+    await ctx.send("he" * count_heh)
+
+bot.run("ТУТ СЕКРЕТНЫЙ ТОКЕН")
